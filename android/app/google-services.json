@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "375743874112",
+    "project_id": "aiyo11",
+    "storage_bucket": "aiyo11.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375743874112:android:749df8472f2390b3130ba5",
+        "android_client_info": {
+          "package_name": "com.example.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZgyGNyW4-K3aGjNH-RjWHeAFfPELB0nQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
