@@ -16,7 +16,6 @@ class ExerciseTimeStorage {
   }
 
   Future<void> getData() async {
-<<<<<<< HEAD
     // Fetch exerciseTimes from storage
     final exerciseTimeDoc =
         await firestore.collection('exerciseTimes').doc(email).get();
@@ -25,20 +24,12 @@ class ExerciseTimeStorage {
       throw Exception('null data');
     }
 
-=======
-    //fetch exerciseTimes from storage
-    final exerciseTimeDoc =
-        await firestore.collection('exerciseTimes').doc(email).get();
->>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
     final data = exerciseTimeDoc.data();
     if (data != null) {
       exerciseTimeData = data;
       print(exerciseTimeData);
     } else {
-<<<<<<< HEAD
       print('Document is empty');
-=======
->>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
       throw Exception('null data');
     }
   }
@@ -71,11 +62,7 @@ class ExerciseTimeStorage {
       }
     }
     for (int i = 1; i < weeklyExerciseTimes.length; i++) {
-<<<<<<< HEAD
       weeklyExerciseTimes[i] = (weeklyExerciseTimes[i]).round();
-=======
-      weeklyExerciseTimes[i] = (weeklyExerciseTimes[i] / 10).round();
->>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
     }
     return weeklyExerciseTimes;
   }

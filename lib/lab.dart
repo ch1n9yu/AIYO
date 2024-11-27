@@ -48,11 +48,7 @@ class _LabState extends State<Lab> {
   Future<void> _initializeCamera() async {
     cameras = await availableCameras();
     if (cameras != null && cameras!.isNotEmpty) {
-<<<<<<< HEAD
       _controller = CameraController(cameras![1], ResolutionPreset.medium);
-=======
-      _controller = CameraController(cameras![0], ResolutionPreset.medium);
->>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
       await _controller!.initialize();
       // 禁用閃光燈
       await _controller!.setFlashMode(FlashMode.off);
@@ -67,11 +63,7 @@ class _LabState extends State<Lab> {
 
   Future<void> _connectToServer() async {
     try {
-<<<<<<< HEAD
       _socket = await Socket.connect('192.168.0.108', 12345); // 替換為伺服器的IP和端口
-=======
-      _socket = await Socket.connect('10.199.18.207', 12345); // 替換為伺服器的IP和端口
->>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
       setState(() {
         isSocketConnected = true;
         connectionMessage = 'Connected to server'; // 更新連接訊息
