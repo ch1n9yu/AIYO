@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:aiyo11/widget/constant.dart';
+<<<<<<< HEAD
 import 'package:aiyo11/services/exercise.dart';
 
+=======
+>>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
 import 'package:aiyo11/widget/size_config.dart';
 
 class ActivityPieChart extends StatefulWidget {

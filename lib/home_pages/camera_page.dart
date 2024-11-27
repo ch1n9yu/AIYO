@@ -48,7 +48,10 @@ class _CameraPageState extends State<CameraPage> {
   Future<void> init() async {
     await exerciseTimeStorage.getData();
     exerciseTimes = exerciseTimeStorage.fetchExerciseTime(DateTime.now());
+<<<<<<< HEAD
     timerService.reset();
+=======
+>>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
   }
 
   Future<void> _checkPermissions() async {
@@ -61,7 +64,11 @@ class _CameraPageState extends State<CameraPage> {
   Future<void> _initializeCamera() async {
     cameras = await availableCameras();
     if (cameras != null && cameras!.isNotEmpty) {
+<<<<<<< HEAD
       _controller = CameraController(cameras![1], ResolutionPreset.medium);
+=======
+      _controller = CameraController(cameras![0], ResolutionPreset.medium);
+>>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
       await _controller!.initialize();
       // 禁用閃光燈
       await _controller!.setFlashMode(FlashMode.off);
@@ -76,7 +83,11 @@ class _CameraPageState extends State<CameraPage> {
 
   Future<void> _connectToServer() async {
     try {
+<<<<<<< HEAD
       _socket = await Socket.connect('192.168.0.108', 12345); // 替換為伺服器的IP和端口
+=======
+      _socket = await Socket.connect('192.168.0.11', 12345); // 替換為伺服器的IP和端口
+>>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
       setState(() {
         isSocketConnected = true;
         connectionMessage = 'Connected to server'; // 更新連接訊息
@@ -132,7 +143,10 @@ class _CameraPageState extends State<CameraPage> {
       print("Camera not initialized yet");
       return;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
     final directory = await getExternalStorageDirectory();
     final dirPath = '${directory!.path}/pose_image';
     final dir = Directory(dirPath);
@@ -143,6 +157,7 @@ class _CameraPageState extends State<CameraPage> {
     print("Start taking picture!");
 
     for (int i = 0; i < numPhotos; i++) {
+<<<<<<< HEAD
       if (_controller != null && _controller!.value.isInitialized) {
         try {
           final photoFile = await _controller!.takePicture();
@@ -161,6 +176,17 @@ class _CameraPageState extends State<CameraPage> {
         print("Camera controller is null or not initialized");
         break;
       }
+=======
+      final photoFile = await _controller!.takePicture();
+      final photoFilename = '$dirPath/captured_image_${i + 1}.png';
+      await photoFile.saveTo(photoFilename);
+      print("Image saved as '$photoFilename'");
+
+      if (isSocketConnected) {
+        await sendImageOverSocket(photoFilename);
+      }
+      await Future.delayed(Duration(seconds: 3));
+>>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
     }
     print("All images saved");
   }
@@ -209,8 +235,11 @@ class _CameraPageState extends State<CameraPage> {
                 ? Center(child: CircularProgressIndicator())
                 : CameraPreview(_controller!),
           ),
+<<<<<<< HEAD
 
           // Positioned 圓框，顯示 connectionMessage 或 serverMessage
+=======
+>>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
           Positioned(
             top: 20, // 距離螢幕上方 20 個像素
             left: 20,
@@ -241,6 +270,7 @@ class _CameraPageState extends State<CameraPage> {
               ),
             ),
           ),
+<<<<<<< HEAD
           // GestureDetector(
           //     onTap: () async {
           //         isStart = false;
@@ -257,6 +287,32 @@ class _CameraPageState extends State<CameraPage> {
           // Column(
           //   children: [Text('${timerService.getElapsedTime()}')],
           // )
+=======
+          GestureDetector(
+              onTap: () async {
+                if (isStart == false) {
+                  init();
+                  print('========');
+                  isStart = true;
+                  print(exerciseTimes);
+                  setState(() {});
+                } else {
+                  isStart = false;
+                  int exerciseTime = timerService.getElapsedTime();
+                  exerciseTimes[widget.pose] += exerciseTime;
+                  exerciseTimeStorage.saveExerciseTime(exerciseTimes);
+                  timerService.reset();
+                  setState(() {});
+                }
+              },
+              child: isStart
+                  ? button(const Icon(Icons.lock_clock), Alignment.bottomCenter)
+                  : button(const Icon(Icons.not_started_outlined),
+                      Alignment.bottomCenter)),
+          Column(
+            children: [Text('${timerService.getElapsedTime()}')],
+          )
+>>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
         ],
       ),
     );
@@ -266,6 +322,7 @@ class _CameraPageState extends State<CameraPage> {
   void dispose() {
     _controller?.dispose();
     _socket?.close();
+<<<<<<< HEAD
 
     if (exerciseTimes.length > widget.pose) {
       int exerciseTime = timerService.getElapsedTime();
@@ -275,6 +332,8 @@ class _CameraPageState extends State<CameraPage> {
 
     timerService.reset();
 
+=======
+>>>>>>> b10974087543cc26a57c782b182d3b8052c9a07b
     super.dispose();
   }
 }
