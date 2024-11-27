@@ -61,7 +61,7 @@ class _CameraPageState extends State<CameraPage> {
   Future<void> _initializeCamera() async {
     cameras = await availableCameras();
     if (cameras != null && cameras!.isNotEmpty) {
-      _controller = CameraController(cameras![0], ResolutionPreset.medium);
+      _controller = CameraController(cameras![1], ResolutionPreset.medium);
       await _controller!.initialize();
       // 禁用閃光燈
       await _controller!.setFlashMode(FlashMode.off);
