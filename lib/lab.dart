@@ -7,6 +7,9 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:aiyo11/firebase_options.dart';
+import 'package:aiyo11/home_pages/fit_page.dart';
+import 'package:aiyo11/widget/exercise_type_model.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,6 +79,8 @@ class _LabState extends State<Lab> {
         });
       });
       print('Connected to server');
+      // 將 exerciseType 傳送給伺服器
+      await sendExerciseType();
     } catch (e) {
       setState(() {
         connectionMessage = 'Failed to connect to server'; // 更新錯誤訊息
@@ -111,6 +116,33 @@ class _LabState extends State<Lab> {
       );
     } else {
       print("Socket is not connected");
+    }
+  }
+
+  Future<void> sendExerciseType() async {
+    try {
+      if (_socket != null && isSocketConnected) {
+        int exerciseType = context.read<ExerciseTypeModel>().exerciseType;
+        // 先發送 data_type（3 代表 exerciseType）
+        _socket!.add(
+            (ByteData(4)..setInt32(0, 3, Endian.big)).buffer.asUint8List());
+
+        // 然後發送 exerciseType 數據的大小（4 字節）
+        _socket!.add(
+            (ByteData(4)..setInt32(0, 4, Endian.big)).buffer.asUint8List());
+
+        // 最後發送實際的 exerciseType 整數數據
+        _socket!.add((ByteData(4)..setInt32(0, exerciseType, Endian.big))
+            .buffer
+            .asUint8List());
+
+        print("已發送 exerciseType: $exerciseType");
+
+        // 確保資料被刷新並傳送到伺服器
+        await _socket!.flush();
+      }
+    } catch (e) {
+      print("Error when sending exerciseType: $e");
     }
   }
 
